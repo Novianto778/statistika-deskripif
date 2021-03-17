@@ -90,25 +90,26 @@ function tabelFrekuensi(arr) {
   const max = sorted[length - 1];
   const min = sorted[0];
   const rentangan = max - min;
-  const jumlahKelas = Math.ceil(1 + 3.3 * Math.log10(40));
+  const jumlahKelas = Math.ceil(1 + 3.3 * Math.log10(length));
   const panjangKelas = Math.ceil(rentangan / jumlahKelas);
-  renderTable(panjangKelas, jumlahKelas, min, arr);
+  renderTable(panjangKelas, jumlahKelas, panjangKelas, min, arr);
 }
 
-function renderTable(panjangKelas, jumlahKelas, min, arr) {
+function renderTable(panjangKelas, jumlahKelas, panjangKelas, min, arr) {
   let tabel = '';
   let batasBawah = min;
-  for (let i = 0; i < panjangKelas; i++) {
+  console.log(batasBawah + panjangKelas - 1);
+  for (let i = 0; i < jumlahKelas; i++) {
     const frekuensi = arr.filter(
-      (x) => x >= batasBawah && x <= batasBawah + jumlahKelas - 1
+      (x) => x >= batasBawah && x <= batasBawah + panjangKelas - 1
     );
     tabel += `
   <tr>
-     <th scope="row">${batasBawah} - ${batasBawah + jumlahKelas - 1}</th>
+     <th scope="row">${batasBawah} - ${batasBawah + panjangKelas - 1}</th>
      <td>${frekuensi.length}</td>
    </tr>
    `;
-    batasBawah += jumlahKelas;
+    batasBawah += panjangKelas;
   }
   dataTable.innerHTML = `
   <table class="table table-hover table-dark">
